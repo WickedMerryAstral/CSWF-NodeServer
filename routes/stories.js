@@ -9,7 +9,7 @@ router.route('/').get((req, res) => {
 });
 
 // Add a story
-router.route('/add').post((req, res) => {
+router.route('/').post((req, res) => {
     const username = req.user.username;
     const title = req.body.title;
     const description = req.body.description;
@@ -20,18 +20,22 @@ router.route('/add').post((req, res) => {
 
     User.findOne({ username: userName })
         .then((result) => {
-            d.save();
-            result.dungeons
-                .push(d);
+            s.save();
+            result.stories
+                .push(s);
             result.save()
-                .then(() => res.json('Dungeon ' + d.title + ' has been saved, and added to ' + userName));
+                .then(() => res.json("Story " + s.title + " has been saved, and added to " + username + "."));
         })
         .catch(error => res.json("error: " + error));
 });
 
-// Remove a story
-// TODO: Add code
-
 
 // Update a story
+// HTTP PUT
 // TODO: Add code
+
+// Remove a story
+// HTTP DELETE
+// TODO: Add code
+
+module.exports = router;

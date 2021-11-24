@@ -7,6 +7,7 @@ const key = require('../config/jwt')
 const saltRounds = 10;
 
 // Get all users
+// HTTP GET
 router.route('/').get((req, res) => {
     User.find()
         .then(users => res.json(users))
@@ -14,18 +15,25 @@ router.route('/').get((req, res) => {
 });
 
 // Adding a new user
-router.route('/add').post((req, res) => {
-    const username = req.body.username;
+// HTTP POST
+router.route('/').post((req, res) => {
+    var username = req.body.username;
     var password = req.body.password;
 
     bcrypt.hash(password, saltRounds, function (err, hash) {
         password = hash;
         const newUser = new User({ username, password });
         newUser.save()
-            .then(() => res.json('user ' + username + ' has been added!'))
+            .then(() => res.json('User ' + username + ' has been added!'))
             .catch(err => res.status(400).json('error' + err));
     });
 });
+
+// Update a user
+// HTTP PUT
+
+// Remove a user
+// HTTP DELETE
 
 // Logging in, returning JWT token if correct
 router.route('/login').post((req, res) => {
@@ -54,5 +62,7 @@ router.route('/login').post((req, res) => {
                 }
             });
         }
-    })(req, res)
+    })(req, res);
 });
+
+module.exports = router;
