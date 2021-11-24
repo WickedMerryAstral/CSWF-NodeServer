@@ -1,9 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const passport = require('passport');
 const mongoose = require('mongoose');
 
-require('./config/passport.js');
 require('dotenv').config();
 
 const app = express();
@@ -19,19 +17,20 @@ app.all("/api/*", function (req, res, next) {
     return next();
 });
 
+// Add the other routers later.
 const userRouter = require('./routes/users');
 const storyRouter = require('./routes/stories');
 
-// Add authentication
+// Add authentication later.
 app.use('/api/users', userRouter);
 app.use('/api/stories', storyRouter);
 
-const URI = 'mongodb://127.0.0.1/storymanager';
+const URI = 'mongodb://127.0.0.1/StoryManager';
 mongoose.connect(URI);
 mongoose.connection.once('open', function () {
-    console.log('CONNECTED TO ' + URI);
+    console.log('CONNECTED TO: ' + URI);
 }).on('error', function (error) {
-    console.log('CONNECTION ERROR:', error);
+    console.log('CONNECTION ERROR: ', error);
 });
 
 app.listen(port, () => {
