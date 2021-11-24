@@ -1,7 +1,11 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+
+// Model
 let User = require('../models/user.model');
+
+// Auth
+const jwt = require('jsonwebtoken');
 const key = require('../config/jwt')
 const saltRounds = 10;
 
