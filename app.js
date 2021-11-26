@@ -1,11 +1,22 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 require('dotenv').config();
+require('./config/passport.js')
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+app.use(passport.initialize());
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    done(null, user);
+});
 
 app.use(express.json());
 app.use(cors());
@@ -20,10 +31,17 @@ app.all("/api/*", function (req, res, next) {
 // Add the other routers later.
 const userRouter = require('./routes/users');
 const storyRouter = require('./routes/stories');
+const locationRouter = require('./routes/locations');
+const eventRouter = require('./routes/events');
+const characterRouter = require('./routes/characters');
 
 // Add authentication later.
 app.use('/api/users', userRouter);
 app.use('/api/stories', storyRouter);
+app.use('/api/locations', locationRouter);
+app.use('/api/events', eventRouter);
+app.use('/api/characters', characterRouter);
+
 
 const URI = 'mongodb://127.0.0.1/StoryManager';
 mongoose.connect(URI);

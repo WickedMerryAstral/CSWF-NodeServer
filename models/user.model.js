@@ -24,7 +24,7 @@ const userSchema = new Schema({
     timestamps: true
 });
 
-userSchema.methods.comparePassword = function (plainTextPassword, hash) {
+userSchema.methods.validPassword = function (plainTextPassword, hash) {
     return bcrypt.compareSync(plainTextPassword, hash);
 };
 
