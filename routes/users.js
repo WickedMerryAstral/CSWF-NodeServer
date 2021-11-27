@@ -92,9 +92,14 @@ router.route('/login').post((req, res) => {
                     res.status(400);
                     console.log(err);
                 } else {
+                    // Sending back token, username, and userid for front-end functionality.
                     jwt.sign({ username: user }, key.getKey(), { expiresIn: "1d" }, function (err, token) {
                         res.status(200);
-                        return res.json({ token });
+                        return res.json({
+                            'token': token,
+                            'username': user.username,
+                            'userid' : user._id
+                        });
                     })
                 }
             });
