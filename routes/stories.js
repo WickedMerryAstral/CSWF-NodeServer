@@ -8,6 +8,7 @@ let Story = require('../models/story.model');
 router.route('/').get((req, res) => {
     Story.find()
         .populate('author')
+        .populate('locations')
         .then(result => res.json(result))
         .catch(err => res.status(400).json('error: ' + err))
 });
@@ -29,6 +30,7 @@ router.route('/user/:userID').get((req, res) => {
 
     User.findOne({ _id: userID })
         .populate('stories')
+        .populate('locations')
         .then((result) => res.json(result.stories))
         .catch(err => res.status(400).json('error:' + err))
 });
