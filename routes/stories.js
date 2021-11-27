@@ -12,12 +12,25 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('error: ' + err))
 });
 
+// Get specific story
+// HTTP Get
 router.route('/:storyID').get((req, res) => {
     const storyID = req.params.storyID;
 
     Story.findOne({ _id: storyID })
         .then((result) => res.json(result))
         .catch(err => res.status(400).json('error: ' + err))
+});
+
+// Get story by user
+// HTTP Get
+router.route('/user/:userID').get((req, res) => {
+    const userID = req.params.userID;
+
+    User.findOne({ _id: userID })
+        .populate('stories')
+        .then((result) => res.json(result.stories))
+        .catch(err => res.status(400).json('error:' + err))
 });
 
 // Add a story to a user, using MongoDB generated ID.
