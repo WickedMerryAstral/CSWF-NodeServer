@@ -1,3 +1,4 @@
+const { MongoClient } = require('mongodb');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -43,7 +44,7 @@ app.use('/api/events', eventRouter);
 app.use('/api/characters', characterRouter);
 
 
-const URI = 'mongodb://127.0.0.1/StoryManager';
+const URI = 'mongodb+srv://CodeShark:Nibbles%40Bytes@storymanagercluster.k6p2h.mongodb.net/StoryManager?retryWrites=true&w=majority';
 mongoose.connect(URI);
 mongoose.connection.once('open', function () {
     console.log('CONNECTED TO: ' + URI);
