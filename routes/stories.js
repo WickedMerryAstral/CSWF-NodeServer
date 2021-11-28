@@ -30,7 +30,6 @@ router.route('/user/:userID').get((req, res) => {
 
     User.findOne({ _id: userID })
         .populate('stories')
-        .populate('locations')
         .then((result) => res.json(result.stories))
         .catch(err => res.status(400).json('error:' + err))
 });

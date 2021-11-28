@@ -45,7 +45,7 @@ app.use('/api/characters', characterRouter);
 
 // TODO: DYNAMIC URL SWITCHING
 // MONGODB 4.0 LOCAL
-const URI = "mongodb://127.0.0.1/storymanager"
+const URI = "mongodb://127.0.0.1/StoryManagerLocal"
 // MONGO ATLAS
 // const URI = 'mongodb+srv://CodeShark:Nibbles%40Bytes@storymanagercluster.k6p2h.mongodb.net/StoryManager?retryWrites=true&w=majority';
 
