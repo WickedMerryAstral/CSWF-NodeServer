@@ -85,7 +85,7 @@ router.route('/:storyID').put((req, res) => {
     const title = req.body.title;
     const description = req.body.description;
 
-    Story.findOne({ _id: StoryID })
+    Story.findOne({ _id: storyID })
         .then((result) => {
             result.title = title;
             result.description = description;
