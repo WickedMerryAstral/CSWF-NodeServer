@@ -46,8 +46,8 @@ router.route('/').post((req, res) => {
 
     User.findOne({ _id: userID})
         .then((result) => {
-            s.save();
             s.author = result;
+            s.save();
             result.stories
                 .push(s);
             result.save()
@@ -56,6 +56,27 @@ router.route('/').post((req, res) => {
         .catch(error => res.json("error: " + error));
 });
 
+// Add a story to a user, using URL parameters, using MongoDB generated ID.
+// HTTP Post
+router.route('/users/:userID').post((req, res) => {
+    const userID = req.params.userID;
+
+    const title = req.body.title;
+    const description = req.body.description;
+
+    const s = new Story({ title, description })
+
+    User.findOne({ _id: userID })
+        .then((result) => {
+            s.author = result;
+            s.save();
+            result.stories
+                .push(s);
+            result.save()
+                .then(() => res.json("Story:'" + s.title + "' has been saved, and added to " + result.username + "."));
+        })
+        .catch(error => res.json("error: " + error));
+});
 
 // Update a story
 // HTTP PUT
