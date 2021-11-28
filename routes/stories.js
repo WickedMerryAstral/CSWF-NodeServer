@@ -42,10 +42,6 @@ router.route('/').post((req, res) => {
     const title = req.body.title;
     const description = req.body.description;
 
-    console.log(userID);
-    console.log(title);
-    console.log(description);
-
     const s = new Story({ title, description })
 
     User.findOne({ _id: userID})
