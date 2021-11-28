@@ -8,6 +8,16 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('error: ' + err))
 });
 
+// Get locations by story ID
+router.route('/story/:storyID').get((req, res) => {
+    const storyID = req.params.storyID;
+
+    Story.findOne({ _id: storyID })
+        .populate('locations')
+        .then(result => res.json(result.locations))
+        .catch(err => res.status(400).json('error: ' + err))
+});
+
 router.route('/:locationID').get((req, res) => {
     const locationID = req.params.locationID;
 
@@ -17,8 +27,10 @@ router.route('/:locationID').get((req, res) => {
 });
 
 // Adding a location to a story, by its ID.
-router.route('/').post((req, res) => {
-    const storyID = req.body.storyID;
+router.route('/story/:storyID').post((req, res) => {
+    const storyID = req.params.storyID;
+
+    // Location details
     const title = req.body.title;
     const description = req.body.description;
     const place = req.body.place;
@@ -42,7 +54,7 @@ router.route('/:locationID').put((req, res) => {
     const description = req.body.description;
     const place = req.body.place;
 
-    Story.findOne({ _id: locationID })
+    Location.findOne({ _id: locationID })
         .then((result) => {
             result.title = title;
             result.description = description;
@@ -56,7 +68,7 @@ router.route('/:locationID').put((req, res) => {
 router.route('/:locationID').delete((req, res) => {
     const locationID = req.params.locationID;
 
-    Story.findOne({ _id: locationID })
+    Location.findOne({ _id: locationID })
         .deleteOne()
         .then(() => res.json("Location " + locationID + " has been deleted."))
         .catch(err => res.status(400).json('error ' + err));
