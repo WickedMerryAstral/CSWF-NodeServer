@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 let User = require('../models/user.model');
 let Story = require('../models/story.model');
@@ -9,6 +11,7 @@ router.route('/').get((req, res) => {
     Story.find()
         .populate('author')
         .populate('locations')
+        .populate('events')
         .then(result => res.json(result))
         .catch(err => res.status(400).json('error: ' + err))
 });
@@ -57,9 +60,8 @@ router.route('/').post((req, res) => {
 
 // Add a story to a user, using URL parameters, using MongoDB generated ID.
 // HTTP Post
-router.route('/users/:userID').post((req, res) => {
+router.route('/user/:userID').post((req, res) => {
     const userID = req.params.userID;
-
     const title = req.body.title;
     const description = req.body.description;
 

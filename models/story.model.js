@@ -28,6 +28,10 @@ const StorySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Location"
     }],
+    imgURL: {
+        type: String,
+        required: false,
+    }
 });
 
 const Story = mongoose.model('Story', StorySchema);

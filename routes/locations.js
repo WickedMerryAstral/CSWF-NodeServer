@@ -21,7 +21,7 @@ router.route('/story/:storyID').get((req, res) => {
 router.route('/:locationID').get((req, res) => {
     const locationID = req.params.locationID;
 
-    Story.findOne({ _id: locationID })
+    Location.findOne({ _id: locationID })
         .then((result) => res.json(result))
         .catch(err => res.status(400).json('error: ' + err))
 });
