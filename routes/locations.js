@@ -22,6 +22,7 @@ router.route('/:locationID').get((req, res) => {
     const locationID = req.params.locationID;
 
     Location.findOne({ _id: locationID })
+        .populate('characters')
         .then((result) => res.json(result))
         .catch(err => res.status(400).json('error: ' + err))
 });

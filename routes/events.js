@@ -21,9 +21,10 @@ router.route('/story/:storyID').get((req, res) => {
 
 // Getting a specific event
 router.route('/:eventID').get((req, res) => {
-    const eventID = req.params.locationID;
+    const eventID = req.params.eventID;
 
     Event.findOne({ _id: eventID })
+        .populate('characters')
         .then((result) => res.json(result))
         .catch(err => res.status(400).json('error: ' + err))
 });
