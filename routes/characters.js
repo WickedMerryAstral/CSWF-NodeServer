@@ -5,12 +5,20 @@ let Location = require('../models/location.model');
 let Story = require('../models/story.model');
 let Character = require('../models/character.model');
 
-// Get all Events
+// Get all characters
 router.route('/').get((req, res) => {
     Character.find()
         .then(result => res.json(result))
         .catch(err => res.status(400).json('error: ' + err))
 });
+
+router.route('/:characterID').get((req, res) => {
+    const characterID = req.params.characterID;
+    Character.findOne({ _id: characterID })
+        .then(result => res.json(result))
+        .catch(err => res.status(400).json('error: ' + err))
+});
+
 
 // Add character to event
 router.route('/event/:eventID').post((req, res) => {
