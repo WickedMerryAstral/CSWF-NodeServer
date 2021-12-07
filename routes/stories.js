@@ -107,4 +107,15 @@ router.route('/:storyID').delete((req, res) => {
         .catch(err => res.status(400).json('error ' + err));
 });
 
+// Get author by story ID.
+// HTTP GET
+router.route('/story:ID/author').get((req, res) => {
+    const storyID = req.params.storyID;
+
+    Story.findOne({ _id: storyID })
+        .populate('author')
+        .then(result => res.json(result.author))
+        .catch(err => res.status(400).json('error: ' + err))
+});
+
 module.exports = router;
