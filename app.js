@@ -8,7 +8,6 @@ var fs = require('fs');
 var path = require('path');
 var multer = require('multer');
 
-
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
@@ -24,6 +23,12 @@ require('./config/passport.js')
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+//set json as content type
+app.use('*', function (req, res, next) {
+    res.contentType('application/json');
+    next();
+});
 
 app.use(passport.initialize());
 passport.serializeUser(function (user, done) {
@@ -60,11 +65,10 @@ const imageRouter = require('./routes/images');
 
 // Add authentication later.
 app.use('/api/users', userRouter);
-app.use('/api/stories', storyRouter);
-app.use('/api/locations', locationRouter);
-app.use('/api/events', eventRouter);
-app.use('/api/characters', characterRouter);
-app.use('/api/images', imageRouter);
+app.use('/api/stories', passport.authenticate('jwt', { session: false }), storyRouter);
+app.use('/api/locations', passport.authenticate('jwt', { session: false }), locationRouter);
+app.use('/api/events', passport.authenticate('jwt', { session: false }), eventRouter);
+app.use('/api/characters', passport.authenticate('jwt', { session: false }), characterRouter);
 
 // TODO: DYNAMIC URL SWITCHING
 // MONGODB 4.0 LOCAL

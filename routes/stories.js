@@ -29,7 +29,7 @@ router.route('/:storyID').get((req, res) => {
 // Get story by user
 // HTTP Get
 router.route('/user/:userID').get((req, res) => {
-    const userID = req.params.userID;
+    const userID = req.user._id;
 
     User.findOne({ _id: userID })
         .populate('stories')
@@ -40,7 +40,10 @@ router.route('/user/:userID').get((req, res) => {
 // Add a story to a user, using MongoDB generated ID.
 // HTTP Post
 router.route('/').post((req, res) => {
-    const userID = req.body.userID;
+    //const userID = req.body.userID;
+    console.log(req.user);
+
+    const userID = req.user._id;
     const title = req.body.title;
     const description = req.body.description;
 

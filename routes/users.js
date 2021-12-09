@@ -77,11 +77,6 @@ router.route('/login').post((req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    const user = {
-        username,
-        password
-    }
-
     passport.authenticate('local', { session: false }, (err, user, info) => {
         if (err || !user) {
             res.status(400);
@@ -93,7 +88,7 @@ router.route('/login').post((req, res) => {
                     console.log(err);
                 } else {
                     // Sending back token, username, and userid for front-end functionality.
-                    jwt.sign({ username: user }, key.getKey(), { expiresIn: "1d" }, function (err, token) {
+                    jwt.sign({ username: user.username }, key.getKey(), { expiresIn: "1d" }, function (err, token) {
                         res.status(200);
                         return res.json({
                             'token': token,

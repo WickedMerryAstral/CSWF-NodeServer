@@ -3,9 +3,8 @@
     "",
     "\\config",
     "\\models",
-    "\\routes",
-    "\\uploads"
+    "\\routes"
   ],
-  "SelectedNode": "\\routes\\users.js",
+  "SelectedNode": "\\routes\\stories.js",
   "PreviewInSolutionExplorer": false
 }

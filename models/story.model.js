@@ -34,5 +34,8 @@ const StorySchema = new Schema({
     }
 });
 
+StorySchema.methods.isAuthor = function (userID) {
+    return userID === this.author._id;
+}
 const Story = mongoose.model('Story', StorySchema);
 module.exports = Story;
