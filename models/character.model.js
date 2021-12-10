@@ -9,6 +9,7 @@ const characterSchema = new Schema({
     },
     pronouns: {
         type: String,
+        enum: ['he/him','she/her','they/them','other'],
         required: true
     },
     description: {

@@ -28,7 +28,14 @@ const StorySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Location"
     }],
+    imgURL: {
+        type: String,
+        required: false,
+    }
 });
 
+StorySchema.methods.isAuthor = function (userID) {
+    return userID === this.author._id;
+}
 const Story = mongoose.model('Story', StorySchema);
 module.exports = Story;
